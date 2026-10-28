@@ -239,6 +239,10 @@ footer { margin: 32px 0 0; padding: 24px 0 calc(28px + env(safe-area-inset-botto
 #acct { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
 .copy { margin-left: 6px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: .8rem; cursor: pointer; vertical-align: 1px; }
 .copy:hover { border-color: var(--accent); }
+/* 방문 수 (GitHub 판에만 들어감) */
+.hits { display: flex; justify-content: flex-end; margin-top: 18px; }
+.hits a { display: inline-flex; border-radius: 4px; }
+.hits img { display: block; height: 20px; width: auto; }
 .sponsors { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 0; }
 .sponsors li { white-space: nowrap; }
 .sponsors li + li::before { content: ""; display: inline-block; width: 1px; height: .85em; margin: 0 .7em; background: var(--muted); vertical-align: -1px; }
@@ -379,6 +383,7 @@ html.calm .work:hover { transform: none; }
           <button type="button" class="copy" id="copy-acct">계좌번호 복사</button></dd>
       </dl>
     </div>
+    <p class="hits"><a href="https://hits.sh/NCPSPD.github.io/exhibition-2026/" target="_blank" rel="noopener"><img alt="방문 수" src="https://hits.sh/NCPSPD.github.io/exhibition-2026.svg" height="20"></a></p>
   </footer>
 </div>
 
