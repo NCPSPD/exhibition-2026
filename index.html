@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="제3회 장애인평생교육 권리 공모전 「우리는 계속 배우고 싶다」 온라인 전시 · 전국장애인야학협의회">
 <meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="img/mark.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="우리는 계속 배우고 싶다 — 온라인 전시">
+<meta property="og:description" content="제3회 장애인평생교육 권리 공모전 · 전국장애인야학협의회">
+<meta property="og:url" content="https://ncpspd.github.io/exhibition-2026/">
+<meta property="og:image" content="https://ncpspd.github.io/exhibition-2026/img/logo.png">
 <title>우리는 계속 배우고 싶다</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
 <style>
@@ -210,8 +216,21 @@ html.big .room { height: clamp(380px, calc(100dvh - 360px), 640px); }
 .all-grid .n { color: var(--muted); min-width: 2ch; text-align: right; font-variant-numeric: tabular-nums; }
 .all-grid small { display: block; color: var(--muted); font-size: .8rem; }
 
-footer { margin: 32px 0 0; padding: 14px 0 calc(28px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); font-size: .82rem; color: var(--muted); }
-footer p { margin: 0 0 4px; }
+header .org { display: flex; align-items: center; gap: 10px; margin: 0 0 10px; font-size: .86rem; font-weight: 600; color: var(--ink); }
+header .org img { display: block; width: auto; height: 1.75rem; }
+
+footer { margin: 32px 0 0; padding: 24px 0 calc(28px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); font-size: .88rem; color: var(--muted); }
+.credits { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 32px; }
+.credits .logo { display: block; width: 8.5rem; height: auto; flex: none; }
+.credits dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 16px; margin: 0; flex: 1; min-width: min(100%, 18rem); color: var(--ink); }
+.credits dt { color: var(--muted); white-space: nowrap; }
+.credits dd { margin: 0; }
+#acct { font-variant-numeric: tabular-nums; font-weight: 600; white-space: nowrap; }
+.copy { margin-left: 6px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: .8rem; cursor: pointer; vertical-align: 1px; }
+.copy:hover { border-color: var(--accent); }
+.sponsors { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 2px 0; }
+.sponsors li { white-space: nowrap; }
+.sponsors li + li::before { content: ""; display: inline-block; width: 1px; height: .85em; margin: 0 .7em; background: var(--muted); vertical-align: -1px; }
 
 /* 상세 패널 (넓은 화면: 오른쪽, 좁은 화면: 아래에서 올라옴) */
 .scrim { position: fixed; inset: 0; z-index: 10; background: rgba(15, 17, 16, .28); }
@@ -292,6 +311,7 @@ html.calm .work:hover { transform: none; }
 <div class="wrap">
   <header class="top">
     <div>
+      <p class="org"><img src="img/mark.png" alt="" width="41" height="28">사)전국장애인야학협의회</p>
       <p class="eyebrow">제3회 장애인평생교육 권리 공모전 · 온라인 전시</p>
       <h1>우리는 계속 배우고 싶다</h1>
       <p class="meta">2026년 10월 28일(수) – 10월 30일(금) · 한국장애인문화예술원 이음갤러리 · 작품 <span id="h-total">40</span>점</p>
@@ -336,9 +356,17 @@ html.calm .work:hover { transform: none; }
   </details>
 
   <footer>
-    <p>작품 크기는 실제 크기 비율을 따르되, 작은 작품도 잘 보이도록 줄여서 걸었습니다.</p>
-    <p>작품 정보와 해설은 출품 단체가 보내 준 작품 설명서에서 옮겼습니다.</p>
-    <p>주최 전국장애인야학협의회</p>
+    <div class="credits">
+      <img class="logo" src="img/logo.png" alt="전국장애인야학협의회 로고" width="560" height="493">
+      <dl>
+        <dt>주최·주관</dt><dd>사)전국장애인야학협의회</dd>
+        <dt>후원</dt>
+        <dd><ul class="sponsors"><li>교육부 국립특수교육원</li><li>재단법인 바보의나눔</li><li>재단법인 노무현재단</li></ul></dd>
+        <dt>후원 계좌</dt>
+        <dd>부산은행 <span id="acct">070-01-023133-9</span> 전국장애인야학협의회
+          <button type="button" class="copy" id="copy-acct">계좌번호 복사</button></dd>
+      </dl>
+    </div>
   </footer>
 </div>
 
@@ -902,6 +930,20 @@ document.addEventListener('keydown', e => {
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   }
+});
+
+/* ---------- 후원 계좌 복사 ---------- */
+$('copy-acct').addEventListener('click', async () => {
+  const btn = $('copy-acct'), num = $('acct').textContent;
+  let ok = false;
+  try { await navigator.clipboard.writeText(num); ok = true; } catch (e) {}
+  if (!ok) { // 복사가 막힌 곳에서는 번호를 선택해 둔다
+    const r = document.createRange(); r.selectNodeContents($('acct'));
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+  }
+  btn.textContent = ok ? '복사했습니다' : '번호를 선택했습니다';
+  $('live').textContent = ok ? '계좌번호를 복사했습니다.' : '계좌번호를 선택했습니다. 길게 눌러 복사하세요.';
+  setTimeout(() => { btn.textContent = '계좌번호 복사'; }, 2200);
 });
 
 /* ---------- 시작 ---------- */
